@@ -12,7 +12,7 @@ inputs:
         description: >-
             The name of the application.
         required: true
-    description:
+    notes:
         description: >-
             The body for the releases . If this is not set, then the `github.ref` will be used.
         default: ''
