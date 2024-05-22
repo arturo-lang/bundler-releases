@@ -34,11 +34,11 @@ runs:
       - name: Upload release assets
         run: |
             if [ "${{ inputs.notes }}" = "auto" ]; then
-              DESC="--generate-notes"
+              DESC="--title \"${{ inputs.name }} ${{ github.ref_name }}\" --generate-notes"
             elif [ "${{ inputs.notes }}" = "" ]; then
-              DESC="--title '${{ inputs.name }}'"
+              DESC="--title \"${{ inputs.name }} ${{ github.ref_name }}\""
             else
-              DESC="--title '${{ inputs.name }} ${{ github.ref_name }}' --notes '${{ inputs.notes }}'"
+              DESC="--title \"${{ inputs.name }} ${{ github.ref_name }}\" --notes \"${{ inputs.notes }}\""
             fi
             gh release create ${{ github.ref_name }} $DESC ./assets/*
         env:
