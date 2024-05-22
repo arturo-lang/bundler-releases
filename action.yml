@@ -30,7 +30,8 @@ runs:
         run: |
             echo "NAME: ${{ inputs.name }}"
             echo "VERSION: ${{ inputs.version }}"
-            ls ./assets
+            ls -la ./assets
+            ls -la ./assets/testbundle-0.0.18-amd64-linux.zip
         shell: bash
 
       - name: Fetch description
