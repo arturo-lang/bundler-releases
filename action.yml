@@ -5,37 +5,50 @@ inputs:
         description: >-
             The GITHUB_TOKEN secret.
         required: true
-    bundling:
+    name:
         description: >-
-            The architecture to build for.
-            (one of: 'x86', 'arm', 'arm64', 'amd64', 'native')
-        required: true
+            The name of the application.
+        default: ''
+    version:
+        description: >-
+            The version - in case you want to include it in the archive names.
+        default: ''
+    description:
+        description: >-
+            The body for the releases . If this is not set, then the `github.ref` will be used.
+        default: ''
 runs:
     using: "composite"
     steps:
       - name: Download Artifact
-        if: ${{ inputs.bundling.RELEASE == 'true' }}
         uses: actions/download-artifact@v2
         with:
             path: ./assets
 
+      - name: Fetch description
+        run: |
+          if [ "${{ inputs.description }}" = "" ]; then
+              echo "RELDESC=${{ github.ref }}" >> $GITHUB_ENV
+          else
+              echo "RELDESC=${{ inputs.release_description }}" >> $GITHUB_ENV
+          fi
+        shell: bash
+
       - name: Create Release
-        if: ${{ inputs.bundling.RELEASE == 'true' }}
         id: create-release
         uses: actions/create-release@v1
         env:
             GITHUB_TOKEN: ${{ inputs.token }}
         with:
             tag_name: ${{ github.ref_name }}
-            release_name: "${{ inputs.bundling.EXEFILE }} ${{ inputs.bundling.VERS }}"
+            release_name: "${{ inputs.name }} ${{ inputs.version }}"
             body: |
-                ${{ inputs.bundling.EXEFILE }} ${{ inputs.bundling.VERS }} Release
-                ${{ inputs.bundling.RELDESC }}
+                ${{ inputs.name }} ${{ inputs.version }} Release
+                ${{ env.RELDESC }}
             draft: false
             prerelease: false
         
       - name: Upload Release Assets
-        if: ${{ inputs.bundling.RELEASE == 'true' }}
         id: upload-release-assets
         uses: dwenegar/upload-release-assets@v1
         env:
