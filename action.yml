@@ -1,4 +1,4 @@
-name: 'Subaction'
+name: 'Bundle Release Companion'
 description: 'Release Arturo Bundle'
 branding:
     icon: package
@@ -47,7 +47,3 @@ runs:
         env:
             GITHUB_TOKEN: ${{ inputs.token }}
         shell: bash
-
-branding:
-    icon: 'package'
-    color: 'purple'
