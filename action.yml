@@ -20,6 +20,8 @@ runs:
         uses: actions/download-artifact@v4
         with:
             path: ./assets
+            pattern: ${{ inputs.name }}-*
+            merge-multiple: true
             github-token: ${{ inputs.token }}
 
       - name: Debug environment
