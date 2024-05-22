@@ -8,11 +8,11 @@ inputs:
     name:
         description: >-
             The name of the application.
-        default: ''
+        required: true
     version:
         description: >-
             The version - in case you want to include it in the archive names.
-        default: ''
+        required: true
     description:
         description: >-
             The body for the releases . If this is not set, then the `github.ref` will be used.
