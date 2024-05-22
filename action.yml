@@ -30,6 +30,7 @@ runs:
         run: |
             echo "NAME: ${{ inputs.name }}"
             echo "VERSION: ${{ inputs.version }}"
+            ls ./assets
         shell: bash
 
       - name: Fetch description
