@@ -9,10 +9,6 @@ inputs:
         description: >-
             The name of the application.
         required: true
-    version:
-        description: >-
-            The version - in case you want to include it in the archive names.
-        required: true
     description:
         description: >-
             The body for the releases . If this is not set, then the `github.ref` will be used.
@@ -29,9 +25,8 @@ runs:
       - name: Debug environment
         run: |
             echo "NAME: ${{ inputs.name }}"
-            echo "VERSION: ${{ inputs.version }}"
-            ls -la ./assets
-            ls -la ./assets/testbundle-0.0.18-amd64-linux.zip
+            echo "VERSION: ${{ github.ref_name }}"
+            ls -laR ./assets
         shell: bash
 
       - name: Fetch description
