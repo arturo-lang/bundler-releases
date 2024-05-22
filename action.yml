@@ -24,7 +24,7 @@ runs:
         uses: actions/download-artifact@v4
         with:
             path: ./assets
-            github_token: ${{ inputs.token }}
+            github-token: ${{ inputs.token }}
 
       - name: Fetch description
         run: |
