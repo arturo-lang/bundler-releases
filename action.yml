@@ -26,12 +26,18 @@ runs:
             path: ./assets
             github-token: ${{ inputs.token }}
 
+      - name: Debug environment
+        run: |
+            echo "NAME: ${{ inputs.name }}"
+            echo "VERSION: ${{ inputs.version }}"
+        shell: bash
+
       - name: Fetch description
         run: |
           if [ "${{ inputs.description }}" = "" ]; then
               echo "RELDESC=${{ github.ref }}" >> $GITHUB_ENV
           else
-              echo "RELDESC=${{ inputs.release_description }}" >> $GITHUB_ENV
+              echo "RELDESC=${{ inputs.description }}" >> $GITHUB_ENV
           fi
         shell: bash
 
