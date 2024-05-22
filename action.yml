@@ -55,15 +55,22 @@ runs:
                 ${{ env.RELDESC }}
             draft: false
             prerelease: false
-        
-      - name: Upload Release Assets
-        id: upload-release-assets
-        uses: dwenegar/upload-release-assets@v1
+    
+      - name: Upload release assets
+        run: |
+            gh release create ${{ github.ref_name }} ./assets/*
         env:
-            GITHUB_TOKEN: ${{ inputs.token }}
-        with:
-            release_id: ${{ steps.create-release.outputs.id }}
-            assets_path: ./assets  
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: bash
+        
+    #   - name: Upload Release Assets
+    #     id: upload-release-assets
+    #     uses: dwenegar/upload-release-assets@v1
+    #     env:
+    #         GITHUB_TOKEN: ${{ inputs.token }}
+    #     with:
+    #         release_id: ${{ steps.create-release.outputs.id }}
+    #         assets_path: ./assets  
 
 branding:
     icon: 'package'
