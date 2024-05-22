@@ -1,5 +1,8 @@
 name: 'Subaction'
 description: 'Release Arturo Bundle'
+branding:
+    icon: package
+    color: purple
 inputs:
     token:
         description: >-
